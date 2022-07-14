@@ -1,0 +1,54 @@
+<head>
+  <script type="module" src="https://kit.fontawesome.com/12a1219063.js" crossorigin="anonymous"></script>
+</head>
+<div class="container">
+  <div class="row">
+    <div class="col-8">
+      <% @post.each do |post| %>
+        <div class="insta-post">
+          <div class="post-meta">
+
+            <%= link_to (image_tag post.account.image.derivation_url(:thumbnail, 50, 50), class: "img-circle"), profile_path(post.account.username) %>
+            <%= link_to post.account.username, profile_path(post.account.username), class: "text-black" %>
+          </div>
+          <%= image_tag post.image.url, class: "img img-fluid" %>
+
+
+          <div class="post-details">
+            <div class="post-actions">
+
+              <i class="fa fa-heart like-<%= post.id %><%= 'active' if post_liked_by_user?(post.id) %> fa-2x  post-like"></i>
+              <i class="fa fa-comment fa-2x post-comment"></i>
+            </div>
+            <!--            <p><%#= post.likes.count %> <%#= (post.likes.count) == 1 ? 'like' : 'likes'%></p>-->
+            <p>
+              <strong id="post-<%= post.id %>-likes"><%= post.total_likes_count %> likes</strong>
+            </p>
+            <p>
+              <strong id="post-<%= post.id %>-comments"><%= link_to post.account.username, profile_path(post.account.username), class: "text-dark" %></strong>
+            </p>
+            <%= simple_format post.title %>
+            <p class="text-muted"> <%= time_ago_in_words post.created_at %> ago</p>
+          </div>
+        </div>
+      <% end %>
+    </div>
+    <div class="col-4">
+      <div class="account-summary">
+        <p>
+          <%= link_to (image_tag current_account.image.derivation_url(:thumbnail, 50, 50), class: "img-circle"), profile_path(current_account.username) if current_account.image.present? %>
+          <strong><%= current_account.username %></strong>
+        </p>
+        <p>
+          <%= current_account.full_name %>
+        </p>
+
+      </div>
+      <div class="follower-suggestions">
+        <%= link_to "View all", "#", class: "float-end text-dark" %>
+        <p class="text-muted"><strong>Suggestions for you</strong></p>
+        <%= render "accounts/follower_suggestions" %>
+      </div>
+    </div>
+  </div>
+</div>

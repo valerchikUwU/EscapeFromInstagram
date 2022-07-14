@@ -1,0 +1,17 @@
+<%@follower_suggestions.each do |acc| %>
+  <div class="recommended-follower">
+    <div class="row">
+      <div class="col-sm-3 col-lg-2">
+    <%= link_to profile_picture(acc), profile_path(acc.username) %>
+      </div>
+      <div class="col-sm-9 col-lg-10">
+        <%=form_tag follow_account_path, method: :post, class: "float-end" do %>
+          <%=hidden_tag :follow_id  %>
+          <%= submit_tag "Follow", class: "btn btn-info" %>
+          <%end %>
+    <%= link_to acc.username, profile_path(acc.username), class: "text-dark" %>
+    <p class="text-muted"><%=acc.created_at < 1.days.ago ? "New to EFI" : "Followed by X users" %></p>
+      </div>
+  </div>
+  </div>
+<% end %>

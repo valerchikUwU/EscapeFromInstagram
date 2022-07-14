@@ -1,4 +1,7 @@
 class PostsController < ApplicationController
+  respond_to :js, :html, :json
+  before_action :authenticate_account!
+
   def new
     @post = Post.new
   end
@@ -16,6 +19,9 @@ class PostsController < ApplicationController
 
   def show
   end
+
+
+
 
   private
 

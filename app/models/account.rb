@@ -1,4 +1,6 @@
 class Account < ApplicationRecord
+
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -7,6 +9,7 @@ class Account < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
 
   has_many :posts
+  has_many :likes
 
   def full_name
     "#{first_name} #{last_name}"
