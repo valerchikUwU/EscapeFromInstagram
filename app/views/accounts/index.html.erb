@@ -18,7 +18,9 @@
             <div class="post-actions">
 
               <i class="fa fa-heart like-<%= post.id %><%= 'active' if post_liked_by_user?(post.id) %> fa-2x  post-like"></i>
+              <%=link_to post_path(post.id) do %>
               <i class="fa fa-comment fa-2x post-comment"></i>
+                <%end %>
             </div>
             <!--            <p><%#= post.likes.count %> <%#= (post.likes.count) == 1 ? 'like' : 'likes'%></p>-->
             <p>
@@ -29,17 +31,28 @@
             </p>
             <%= simple_format post.title %>
             <p class="text-muted"> <%= time_ago_in_words post.created_at %> ago</p>
+
+            <%= render "posts/comments", post:post %>
+          </div>
+          <div class="comment-box">
+            <%= form_for @comment do |f| %>
+              <%= f.hidden_field :post_id, value: post.id %>
+              <div class="input-group">
+              <%= f.text_field :comment, placeholder: "Add comment here..." , class: "form-control post-comment:focus"%>
+                <div class="input-group-append">
+              <%= f.submit "Comment", class: "btn btn-success float-end" %>
+                </div>
+              </div>
+            <% end %>
           </div>
         </div>
       <% end %>
     </div>
     <div class="col-4">
       <div class="account-summary">
-        <p>
-          <%= link_to (image_tag current_account.image.derivation_url(:thumbnail, 50, 50), class: "img-circle"), profile_path(current_account.username) if current_account.image.present? %>
-          <strong><%= current_account.username %></strong>
-        </p>
-        <p>
+        <p class="m-0">
+          <%= link_to (image_tag current_account.image.derivation_url(:thumbnail, 50, 50), class: "img-circle float-start m-r-10"), profile_path(current_account.username) if current_account.image.present? %>
+          <strong><%= current_account.username %></strong><br/>
           <%= current_account.full_name %>
         </p>
 

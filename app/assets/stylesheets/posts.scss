@@ -34,3 +34,24 @@ margin-bottom: 20px;
     color: #ea0c1d;
   }
 }
+
+.comment-box {
+  padding: 15px;
+  background: #fff;
+  border: 1px solid #ddd;
+}
+
+.post-comment:focus {
+  box-shadow: none !important;
+}
+
+.comments-feed {
+  height: 50px;
+  overflow: scroll;
+}
+
+.post-details .post-actions {
+  border-top: 1px solid #ddd;
+  padding-top: 20px;
+  margin-top: 20px;
+}

@@ -2,6 +2,7 @@
 <html>
 
 <head>
+  <script type="module" src="https://kit.fontawesome.com/12a1219063.js" crossorigin="anonymous"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
   <meta name="description" content="" />
@@ -16,12 +17,14 @@
   <%=javascript_include_tag  'application', 'data-turbolinks-track': 'reload' %>
 </head>
 
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+<nav class="navbar navbar-expand-lg navbar-light " style="background-color: #ffca2c">
 
 
 
   <div class="container">
-    <a class="navbar-brand" href="/">EscapeFromInstagram</a>
+    <a class="navbar-brand" href="<%= account_signed_in? ? dashboard_path : root_path %>">
+      <i class="fa fa-hand-middle-finger"></i> | EscapeFromInstagram
+    </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">

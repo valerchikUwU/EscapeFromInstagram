@@ -10,11 +10,10 @@ class Post < ApplicationRecord
 
   belongs_to :account
   has_many :likes
+  has_many :comments
 
 
-  def total_likes
-    0
-  end
+
 
   def set_active
     self.active = true
