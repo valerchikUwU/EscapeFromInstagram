@@ -9,7 +9,7 @@ class Post < ApplicationRecord
   include ImageUploader::Attachment.new(:image)
 
   belongs_to :account
-  has_many :likes
+  has_many :likes, dependent: :destroy
   has_many :comments
 
 

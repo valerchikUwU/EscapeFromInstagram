@@ -1,7 +1,7 @@
 module AccountsHelper
 
-  def profile_picture account, width = 100
-    image_path = account.image.present? ? account.image.derivation_url(:thumbnail, 20, 20) : 'place.png'
+  def profile_picture account, width = 200
+    image_path = account.image.present? ? account.image.url : 'place.png'
     image_tag(image_path, width: width, class: 'img-circle')
   end
 

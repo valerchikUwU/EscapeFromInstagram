@@ -8,7 +8,6 @@
         <div class="insta-post">
           <div class="post-meta">
 
-            <%= link_to (image_tag post.account.image.derivation_url(:thumbnail, 50, 50), class: "img-circle"), profile_path(post.account.username) %>
             <%= link_to post.account.username, profile_path(post.account.username), class: "text-black" %>
           </div>
           <%= image_tag post.image.url, class: "img img-fluid" %>
@@ -17,14 +16,37 @@
           <div class="post-details">
             <div class="post-actions">
 
-              <i class="fa fa-heart like-<%= post.id %><%= 'active' if post_liked_by_user?(post.id) %> fa-2x  post-like"></i>
-              <%=link_to post_path(post.id) do %>
-              <i class="fa fa-comment fa-2x post-comment"></i>
-                <%end %>
+              <%= link_to post_path(post.id) do %>
+                <i class="fa fa-comment fa-2x post-comment"></i>
+              <% end %>
             </div>
-            <!--            <p><%#= post.likes.count %> <%#= (post.likes.count) == 1 ? 'like' : 'likes'%></p>-->
+
             <p>
-              <strong id="post-<%= post.id %>-likes"><%= post.total_likes_count %> likes</strong>
+
+            <p><% pre_like = post.likes.find { |like| like.account_id == current_account.id} %>
+            <p><%= post.likes.count %> <%= (post.likes.count) == 1 ? 'Like' : 'Likes'%></p>
+              <% if pre_like %>
+                <%= button_to 'Unlike', post_like_path(post, pre_like), method: :delete %>
+              <% else %>
+                <%= button_to 'Like', post_likes_path(post), method: :post %>
+              <% end %>
+<!--              <%#= post.likes.count %> Likes-->
+              <%# like = current_account.likes.find_by(post: post) %>
+              <%#if like.nil? %>
+<!--              <form action="/likes" method="post">-->
+<!--                <input type="hidden" name="authenticity_token" value="<%#= form_authenticity_token %>">-->
+<!--                <input type="hidden" name="like[post_id]" value="<%#= post.id %>">-->
+<!--                <input type="submit" value="Like">-->
+<!--              </form>-->
+                <%#else %>
+              <%# like = current_account.likes.find_by(post: post) %>
+              <%#= button_to "Unlike", like_path(like), method: :delete %>
+<!--              <form action="<%#=like_path(like.id) %>" method="post">-->
+<!--                <input type="hidden" name="authenticity_token" value="<%#= form_authenticity_token %>">-->
+<!--                <input type="hidden" name="_method" value="DELETE">-->
+<!--                <input type="submit" value="Unlike">-->
+<!--              </form>-->
+                <%#end %>
             </p>
             <p>
               <strong id="post-<%= post.id %>-comments"><%= link_to post.account.username, profile_path(post.account.username), class: "text-dark" %></strong>
@@ -32,15 +54,15 @@
             <%= simple_format post.title %>
             <p class="text-muted"> <%= time_ago_in_words post.created_at %> ago</p>
 
-            <%= render "posts/comments", post:post %>
+            <%= render "posts/comments", post: post %>
           </div>
           <div class="comment-box">
             <%= form_for @comment do |f| %>
               <%= f.hidden_field :post_id, value: post.id %>
               <div class="input-group">
-              <%= f.text_field :comment, placeholder: "Add comment here..." , class: "form-control post-comment:focus"%>
+                <%= f.text_field :comment, placeholder: "Add comment here...", class: "form-control post-comment:focus" %>
                 <div class="input-group-append">
-              <%= f.submit "Comment", class: "btn btn-success float-end" %>
+                  <%= f.submit "Comment", class: "btn btn-success float-end" %>
                 </div>
               </div>
             <% end %>
