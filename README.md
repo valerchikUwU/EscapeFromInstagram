@@ -5,8 +5,11 @@ MVC Architecture
 This application follows the Model-View-Controller (MVC) architectural pattern, which separates the application into three interconnected parts:
 
 Models: Represent the data and the business logic of the application.
+
 Views: Display the user interface and interact with the user.
+
 Controllers: Handle the user's requests, process the data, and return the response.
+
 In this application, the models represent the users, posts, comments, likes, and direct messages. The views are implemented with HTML, CSS, and JavaScript, and use the Bootstrap framework for styling. The controllers handle the HTTP requests and responses, and interact with the models and views to process the data and render the appropriate response.
 
 Features
